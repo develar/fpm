@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   # For parsing JSON (required for some Python support, etc)
   # http://flori.github.com/json/doc/index.html
-  spec.add_dependency("json", ">= 1.7.7", "< 2.0") # license: Ruby License
+  #spec.add_dependency("json", ">= 1.7.7", "< 2.0") # license: Ruby License
 
   # For logging
   # https://github.com/jordansissel/ruby-cabin
@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
   # For calling functions in dynamic libraries
   spec.add_dependency("ffi") # license: GPL3/LGPL3
 
-  spec.add_development_dependency("rake", "~> 10") # license: MIT
+  spec.add_development_dependency("rake", "~> 11") # license: MIT
 
   # For creating tar archives (many packages are just tar archives)
   spec.add_dependency("archive-tar-minitar", "0.5.2") # license: GPL2+

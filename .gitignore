@@ -39,3 +39,12 @@ Gemfile.lock
 
 docs/_build
 docs/.work
+
+packaging/vendor/
+packaging/*.xz
+packaging/*.tar.gz
+dist/
+
+.idea/
+
+vendor/bundle/
