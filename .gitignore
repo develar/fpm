@@ -37,6 +37,9 @@ Gemfile.lock
 .rbx
 .vagrant
 
+# RubyMine
+.idea/
+
 docs/_build
 docs/.work
 
