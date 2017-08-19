@@ -164,7 +164,7 @@ class FPM::Package::Pacman < FPM::Package
     end
 
     self.dependencies = control["depend"] || self.dependencies
-    
+
     if attributes[:no_auto_depends?]
       self.dependencies = []
     end
@@ -210,7 +210,11 @@ class FPM::Package::Pacman < FPM::Package
   def compression_option
     case self.attributes[:pacman_compression]
       when nil, "xz"
-        return "--xz"
+        if ENV["FPM_COMPRESS_PROGRAM"]
+          return "-I'#{ENV["FPM_COMPRESS_PROGRAM"]}'"
+        else
+          return "-J"
+        end
       when "none"
         return ""
       when "gz"

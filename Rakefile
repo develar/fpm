@@ -1,4 +1,4 @@
-# macOS — YOU MUST use ruby 2.2.2 — rvm use ruby-2.2.2 (and then MAC=1 rake package:mac) 
+# macOS — YOU MUST use ruby 2.2.2 — rvm use ruby-2.2.2 (and then MAC=1 rake package:mac)
 
 # For Bundler.with_clean_env
 require 'bundler/setup'
@@ -8,9 +8,9 @@ TRAVELING_RUBY_VERSION = "2.3.1"
 TRAVELING_RUBY_VERSION_OSX = "20150715-2.2.2"
 
 if ENV['MAC']
-  VERSION = "1.8.1-#{TRAVELING_RUBY_VERSION_OSX}"
+  VERSION = "1.9.2-#{TRAVELING_RUBY_VERSION_OSX}"
 else
-  VERSION = "1.8.1-#{TRAVELING_RUBY_VERSION}"
+  VERSION = "1.9.2-#{TRAVELING_RUBY_VERSION}"
 end
 
 FFI = "ffi-1.9.10"
@@ -124,6 +124,7 @@ def create_package(target)
     # sh "cd dist && tar -cf - #{package_name}/ | xz --x86 --compress --force -9 --extreme - > #{package_name}.tar.xz"
     sh "rm -f #{package_name}.7z"
     sh "cd dist/#{package_name} && 7za a -m0=lzma2 -mx=9 -mfb=64 -md=64m -ms=on ../#{package_name}.7z ."
+    sh "openssl dgst -sha512 -binary dist/#{package_name}.7z | base64"
   end
 end
 

@@ -51,7 +51,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency("ruby-xz") # license: MIT
 
   # For sourcing from pleaserun
-  spec.add_dependency("pleaserun", "~> 0.0.29") # license: Apache 2
+  # error on install, disabled for now
+  # spec.add_dependency("pleaserun", "~> 0.0.30") # license: Apache 2
 
   spec.add_dependency("stud")
 

@@ -552,7 +552,11 @@ class FPM::Package::Deb < FPM::Package
         compression = "-j"
       when "xz"
         datatar = build_path("data.tar.xz")
-        compression = "-J"
+        if ENV["FPM_COMPRESS_PROGRAM"]
+          compression = "-I'#{ENV["FPM_COMPRESS_PROGRAM"]}'"
+        else
+          compression = "-J"
+        end
       else
         raise FPM::InvalidPackageConfiguration,
           "Unknown compression type '#{self.attributes[:deb_compression]}'"
