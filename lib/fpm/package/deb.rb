@@ -831,11 +831,25 @@ class FPM::Package::Deb < FPM::Package
 
     # scan all conf file paths for files and add them
     config_files.each do |path|
+      logger.debug("Checking if #{path} exists")
+      cfe = File.exist?("#{path}")
+      logger.debug("Check result #{cfe}")
       begin
         add_path(path, allconfigs)
       rescue Errno::ENOENT
-        raise FPM::InvalidPackageConfiguration,
-          "Error trying to use '#{path}' as a config file in the package. Does it exist?"
+        if !cfe
+          raise FPM::InvalidPackageConfiguration,
+            "Error trying to use '#{path}' as a config file in the package. Does it exist?"
+        else
+          dcl = File.join(staging_path, path)
+          if !File.exist?("#{dcl}")
+            logger.debug("Adding config file #{path} to Staging area #{staging_path}")
+            FileUtils.mkdir_p(File.dirname(dcl))
+            FileUtils.cp_r path, dcl
+          else
+            logger.debug("Config file aready exists in staging area.")
+          end
+        end
       end
     end
 

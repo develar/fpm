@@ -3,7 +3,8 @@ require "fpm/util" # local
 require "pathname" # stdlib
 require "find"
 require "tmpdir" # stdlib
-require "backports" # gem 'backports'
+require "ostruct"
+require "backports/2.0.0/stdlib/ostruct"
 require "socket" # stdlib, for Socket.gethostname
 require "shellwords" # stdlib, for Shellwords.escape
 require "erb" # stdlib, for template processing
@@ -118,7 +119,10 @@ class FPM::Package
 
   def initialize
     # Attributes for this specific package
-    @attributes = {}
+    @attributes = {
+      # Default work location
+      :workdir => ::Dir.tmpdir
+    }
 
     # Reference
     # http://www.debian.org/doc/manuals/maint-guide/first.en.html
@@ -507,7 +511,7 @@ class FPM::Package
       end
     end
   end
-  
+
   # Get the contents of the script by a given name.
   #
   # If template_scripts? is set in attributes (often by the --template-scripts
